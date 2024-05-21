@@ -1,0 +1,12 @@
+.trs-table {
+    &__row {
+        width: 100%;
+        display: flex;
+        &__cell {
+            --_size: 20%;
+            width: var(--_size);
+            aspect-ratio: 1 / 1;
+            border: 1px solid;
+        }
+    }
+}

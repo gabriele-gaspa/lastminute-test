@@ -1,0 +1,27 @@
+<form [formGroup]="placeRobotForm" (ngSubmit)="placeRobotFormSubmit()">
+    <input type="number" formControlName="x">
+    <input type="number" formControlName="y">
+    <select formControlName="f">
+        <option value="north">NORTH</option>
+        <option value="south">SOUTH</option>
+        <option value="west">WEST</option>
+        <option value="est">EST</option>
+    </select>
+    <button type="submit" [disabled]="placeRobotForm.invalid">PLACE ROBOT</button>
+</form>
+
+<button (click)="turnLeftRobot()">
+    LEFT
+</button>
+
+<button (click)="turnRightRobot()">
+    RIGHT
+</button>
+
+<button (click)="moveRobot()">
+    MOVE
+</button>
+
+<button>
+    REPORT
+</button>
