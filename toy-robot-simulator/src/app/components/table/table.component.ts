@@ -23,18 +23,23 @@ export class TableComponent implements OnInit, OnDestroy {
 
   private subscription?: Subscription;
 
+  private _row?: Array<Array<TableCell>>;
   public get rows(): Array<Array<TableCell>> {
-    const rowsGrouped: Array<Array<TableCell>> = new Array();
-    this.cells.forEach(cell => {
-      if(!rowsGrouped[cell.x]) {
-        rowsGrouped[cell.x] = new Array();
-      }
-      rowsGrouped[cell.x].push(cell);
-    });
-    return rowsGrouped;
+    if(!this._row) {
+      const rowsGrouped: Array<Array<TableCell>> = new Array();
+      this.cells.forEach(cell => {
+        if(!rowsGrouped[cell.y]) {
+          rowsGrouped[cell.y] = new Array();
+        }
+        rowsGrouped[cell.y].push(cell);
+      });
+      this._row = rowsGrouped.reverse();
+    }
+    return this._row;
   }
 
   constructor(private controllerService: ControllerService) {}
+
 
   ngOnInit(): void {
     this.loaded$ = this.controllerService.initTable$.pipe(
@@ -54,8 +59,8 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   private initTable() {
-    for(let x = 0; x < this.rowsNumber; x++) {
-      for(let y = 0; y < this.colsNumber; y++) {
+    for(let y = this.rowsNumber - 1; y >= 0; y--) {
+      for(let x = 0; x < this.colsNumber; x++) {
         this.cells.push({
           x: x,
           y: y,
@@ -66,11 +71,13 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   private moveRobot() {
-    let { x, y, f } = this.robot;
-    if(!x || !y || !f) return;
+    if(!this.robot.isPlaced()) return;
+    let x: number = this.robot.x!;
+    let y: number = this.robot.y!;
+    let f: RobotFacingDirection = this.robot.f!;
     switch(f) {
-        case 'north': y -= 1; break;
-        case 'south': y += 1; break;
+        case 'north': y += 1; break;
+        case 'south': y -= 1; break;
         case 'west': x -= 1; break
         case 'est': x += 1; break;
         default: {
@@ -101,8 +108,8 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   private turnLeftRobot() {
-    let { x, y, f } = this.robot;
-    if(!x || !y || !f) return;
+    if(!this.robot.isPlaced()) return;
+    let f: RobotFacingDirection = this.robot.f!;
     switch(f) {
         case 'north': f = 'west'; break;
         case 'south': f = 'est'; break;
@@ -117,8 +124,8 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   private turnRightRobot() {
-    let { x, y, f } = this.robot;
-    if(!x || !y || !f) return;
+    if(!this.robot.isPlaced()) return;
+    let f: RobotFacingDirection = this.robot.f!;
     switch(f) {
         case 'north': f = 'est'; break;
         case 'south': f = 'west'; break;
@@ -142,5 +149,42 @@ export class TableComponent implements OnInit, OnDestroy {
 
   private updateCellStatus(x: number, y: number, status: TableCellStatus) {
     this.cells.find(cell => cell.x == x && cell.y == y)!.status = status;
+  }
+
+  public isRobotHere(cell: TableCell): boolean {
+    return cell.status == 'full' && this.robot.x == cell.x && this.robot.y == cell.y;
+  }
+
+  public onKeyDown(event: KeyboardEvent) {
+    switch (event.key) {
+      case "ArrowDown":
+        this.moveRobotTo("south");
+        break;
+      case "ArrowUp":
+        this.moveRobotTo("north");
+        break;
+      case "ArrowLeft":
+        this.moveRobotTo("west");
+        break;
+      case "ArrowRight":
+        this.moveRobotTo("est");
+        break;
+      default: {
+        //key not allowed
+      }
+    }
+  }
+
+  public moveRobotTo(direction: RobotFacingDirection) {
+    if(this.robot.f != direction) {
+      this.robot.changeFacingDirection(direction);
+      return;
+    }
+    this.moveRobot();
+    
+  }
+
+  public trackByFn(index: number, item: any) {
+    return item;
   }
 }

@@ -1,10 +1,11 @@
 
 <ng-container *ngIf="loaded$ | async">
-    <div class="trs-table" tabindex="0">
-        <ng-container *ngFor="let row of rows">
+    <div class="trs-table" tabindex="0" (keydown)="onKeyDown($event)">
+        <ng-container *ngFor="let row of rows; trackBy: trackByFn">
             <div class="trs-table__row">
-                <ng-container *ngFor="let cell of row">
-                    <div class="trs-table__row__cell" [style]="'--_size: calc(100% / ' + colsNumber +')'" tabindex="0">
+                <ng-container *ngFor="let cell of row; trackBy: trackByFn">
+                    <div class="trs-table__row__cell" [style]="'--_size: calc(100% / ' + colsNumber +')'">
+                        <app-robot *ngIf="isRobotHere(cell)" [robot]="robot"></app-robot>
                     </div>
                 </ng-container>
             </div>

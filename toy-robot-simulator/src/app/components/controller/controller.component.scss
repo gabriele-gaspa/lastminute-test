@@ -1,0 +1,41 @@
+.trs-controller {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    &__place,
+    &__direction,
+    &__move,
+    &__report {
+        border: 1px solid lightgrey;
+        padding: 10px;
+
+        &__header {
+            width: 100%;
+            text-align: center;
+            margin-top: -20px;
+            margin-bottom: 12px;
+
+            &__title {
+                background: white;
+                text-transform: capitalize;
+            }
+        }
+
+        &__body {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+
+            &--vertical {
+                flex-direction: column;
+            }
+        }
+    }
+
+    &__place {
+        &__buttons {
+            text-align: center;
+        }
+    }
+}

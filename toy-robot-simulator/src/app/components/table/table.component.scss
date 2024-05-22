@@ -6,7 +6,10 @@
             --_size: 20%;
             width: var(--_size);
             aspect-ratio: 1 / 1;
-            border: 1px solid;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid lightgrey;
         }
     }
 }

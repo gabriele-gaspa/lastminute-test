@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { Robot } from '../../types/robot.types';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Robot, RobotFacingDirection } from '../../types/robot.types';
+import { ControllerService } from '../../services/controller.service';
 
 @Component({
   selector: 'app-robot',
@@ -9,6 +10,4 @@ import { Robot } from '../../types/robot.types';
 export class RobotComponent {
 
   @Input({required: true}) robot!: Robot;
-
-  //gestire keydown e mandare segnale al controller service
 }

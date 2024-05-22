@@ -1,27 +1,85 @@
-<form [formGroup]="placeRobotForm" (ngSubmit)="placeRobotFormSubmit()">
-    <input type="number" formControlName="x">
-    <input type="number" formControlName="y">
-    <select formControlName="f">
-        <option value="north">NORTH</option>
-        <option value="south">SOUTH</option>
-        <option value="west">WEST</option>
-        <option value="est">EST</option>
-    </select>
-    <button type="submit" [disabled]="placeRobotForm.invalid">PLACE ROBOT</button>
-</form>
+<div class="trs-controller">
+    <div class="trs-controller__place">
+        <div class="trs-controller__place__header">
+            <span class="trs-controller__place__header__title">
+                Place robot
+            </span>
+        </div>
+        <form [formGroup]="placeRobotForm" (ngSubmit)="placeRobotFormSubmit()">
+            <div class="trs-controller__place__body trs-controller__place__body--vertical">
+                <mat-form-field>
+                    <mat-label>X position</mat-label>
+                    <input matInput type="number" formControlName="x">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Y position</mat-label>
+                    <input matInput type="number" formControlName="y">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Facing direction</mat-label>
+                    <mat-select formControlName="f">
+                        <mat-option value="north">
+                            NORTH
+                        </mat-option>
+                        <mat-option value="south">
+                            SOUTH
+                        </mat-option>
+                        <mat-option value="west">
+                            WEST
+                        </mat-option>
+                        <mat-option value="est">
+                            EST
+                        </mat-option>                    
+                    </mat-select>
+                </mat-form-field>
+                <div class="trs-controller__place__buttons">
+                    <button mat-flat-button color="primary" type="submit" [disabled]="placeRobotForm.invalid">
+                        PLACE ROBOT
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
 
-<button (click)="turnLeftRobot()">
-    LEFT
-</button>
+    <div class="trs-controller__direction">
+        <div class="trs-controller__direction__header">
+            <span class="trs-controller__direction__header__title">
+                Change direction robot
+            </span>
+        </div>
+        <div class="trs-controller__direction__body">
+            <button mat-flat-button color="primary" (click)="turnLeftRobot()">
+                LEFT
+            </button>            
+            <button mat-flat-button color="primary" (click)="turnRightRobot()">
+                RIGHT
+            </button>
+        </div>
+    </div>
 
-<button (click)="turnRightRobot()">
-    RIGHT
-</button>
+    <div class="trs-controller__move">
+        <div class="trs-controller__move__header">
+            <span class="trs-controller__move__header__title">
+                Move robot
+            </span>
+        </div>
+        <div class="trs-controller__move__body">
+            <button mat-flat-button color="primary" (click)="moveRobot()">
+                MOVE
+            </button>
+        </div>
+    </div>
 
-<button (click)="moveRobot()">
-    MOVE
-</button>
-
-<button>
-    REPORT
-</button>
+    <div class="trs-controller__report">
+        <div class="trs-controller__report__header">
+            <span class="trs-controller__report__header__title">
+                Report robot position
+            </span>
+        </div>
+        <div class="trs-controller__report__body">
+            <button mat-flat-button color="primary">
+                REPORT
+            </button>
+        </div>
+    </div>
+</div>

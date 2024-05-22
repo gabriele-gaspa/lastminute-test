@@ -8,18 +8,18 @@ export type RobotPosition = {
 
 export class Robot {
 
-    private _x?: number;
-    public get x(): number | undefined {
+    private _x: number | null;
+    public get x(): number | null {
         return this._x;
     }
     
-    private _y?: number;
-    public get y(): number | undefined {
+    private _y: number | null;
+    public get y(): number | null {
         return this._y;
     }
     
-    private _f?: RobotFacingDirection;
-    public get f(): RobotFacingDirection | undefined {
+    private _f: RobotFacingDirection | null;
+    public get f(): RobotFacingDirection | null {
         return this._f;
     }
 
@@ -30,9 +30,16 @@ export class Robot {
      * @param f facing direction
      */
     constructor(x?: number, y?: number, f?: RobotFacingDirection) {
-        this._x = x;
-        this._y = y;
-        this._f = f;
+        this._x = x ?? null;
+        this._y = y ?? null;
+        this._f = f ?? null;
+    }
+
+    /**
+     * @returns boolean which define if the robot is already placed in the table
+     */
+    public isPlaced(): boolean {
+        return this._x !== null && this._y !== null && this._f !== null;
     }
     
     /**

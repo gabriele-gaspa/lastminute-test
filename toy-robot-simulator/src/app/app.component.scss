@@ -1,0 +1,48 @@
+.app-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    &__header {
+        &__title {
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+
+        &__controller,
+        &__table {
+            width: 100%;
+        }
+    }
+
+    @media only screen and (min-width: 768px) {
+        &__body {
+            flex-direction: row;
+
+            &__controller,
+            &__table {
+                width: calc(50% - 20px);
+            }
+        }
+    }
+    
+    @media only screen and (min-width: 1200px) {
+        &__body {
+            width: 80%;
+            align-self: center;
+        }
+    }
+
+    @media only screen and (min-width: 1450px) {
+        &__body {
+            width: 75%;
+        }
+    }
+}

@@ -1,0 +1,18 @@
+.trs-robot {
+    &__icon {
+        transition-duration: 0.8s;
+        transition-property: transform;
+        &--north {
+            transform: rotate(0deg);
+        }
+        &--est {
+            transform: rotate(90deg);
+        }
+        &--south {
+            transform: rotate(180deg);
+        }
+        &--west {
+            transform: rotate(270deg);
+        }
+    }
+}

@@ -17,8 +17,8 @@ export class ControllerComponent implements OnInit {
 
   ngOnInit(): void {
     this.placeRobotForm = new FormGroup<WithControlsFrom<RobotPosition>>({
-      x: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.min(0), Validators.max(5)] }),
-      y: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.min(0), Validators.max(5)]}),
+      x: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.min(0), Validators.max(4)] }),
+      y: new FormControl<number>(0, { nonNullable: true, validators: [Validators.required, Validators.min(0), Validators.max(4)]}),
       f: new FormControl<RobotFacingDirection>('north', { nonNullable: true, validators: [Validators.required]})
     });
   }
