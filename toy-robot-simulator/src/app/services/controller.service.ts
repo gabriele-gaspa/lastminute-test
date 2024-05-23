@@ -32,6 +32,11 @@ export class ControllerService {
     return this.turnRightRobotSubject.asObservable();
   }
 
+  private reportRobotSubject: Subject<void> = new Subject();
+  public get reportRobot$(): Observable<void> {
+    return this.reportRobotSubject.asObservable();
+  }
+
   constructor() { }
 
   /**
@@ -59,4 +64,9 @@ export class ControllerService {
    * turn the robot of the 90° on the right
    */
   public turnRightRobot = () => this.turnRightRobotSubject.next();
+
+  /**
+   * report the position of the robot
+   */
+  public reportRobot = () => this.reportRobotSubject.next();
 }

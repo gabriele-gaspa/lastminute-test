@@ -41,4 +41,8 @@ export class ControllerComponent implements OnInit {
   public moveRobot() {
     this.controllerService.moveRobot();
   }
+
+  public reportRobot() {
+    this.controllerService.reportRobot();
+  }
 }

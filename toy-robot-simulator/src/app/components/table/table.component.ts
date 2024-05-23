@@ -52,6 +52,7 @@ export class TableComponent implements OnInit, OnDestroy {
     this.subscription.add(this.controllerService.moveRobot$.subscribe(() => this.moveRobot()));
     this.subscription.add(this.controllerService.turnLeftRobot$.subscribe(() => this.turnLeftRobot()));
     this.subscription.add(this.controllerService.turnRightRobot$.subscribe(() => this.turnRightRobot()));
+    this.subscription.add(this.controllerService.reportRobot$.subscribe(() => this.reportRobot()));
   }
 
   ngOnDestroy(): void {
@@ -184,7 +185,15 @@ export class TableComponent implements OnInit, OnDestroy {
     
   }
 
-  public trackByFn(index: number, item: any) {
+  public reportRobot() {
+    if(!this.robot.isPlaced()) return;
+    let x: number = this.robot.x!;
+    let y: number = this.robot.y!;
+    let f: RobotFacingDirection = this.robot.f!;
+    alert(`Robot -> x: ${x}, y: ${y}, f: ${f}`);
+  }
+
+  public trackByFn(index: number, item: TableCell[] | TableCell) {
     return item;
   }
 }
